@@ -1,5 +1,8 @@
 /* style.css */
 
+/* Import a stronger, professional header font */
+@import url('https://fonts.googleapis.com/css2?family=Roboto+Slab:wght@700&display=swap');
+
 /* General Page Styling */
 body {
     font-family: Arial, sans-serif;
@@ -11,7 +14,10 @@ body {
 
 /* Header and Titles */
 h1, h2, h3 {
+    font-family: 'Roboto Slab', Arial, sans-serif;
     color: #002147;  /* dark navy blue */
+    text-align: center;
+    margin-top: 20px;
 }
 
 /* Navigation Menu */
@@ -36,6 +42,7 @@ nav a:hover {
 .container {
     width: 80%;
     margin: 20px auto;
+    line-height: 1.6;
 }
 
 /* Footer */
