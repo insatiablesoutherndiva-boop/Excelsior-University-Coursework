@@ -3,12 +3,40 @@
 <head>
   <meta charset="UTF-8">
   <title>Contact Us</title>
+  <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <h1>Contact Us</h1>
-  <p>This page is under construction. Check back soon.</p>
-  <a href="index.html">Back to Home</a>
+  <!-- Navigation -->
+  <nav>
+    <a href="index.html">Home</a>
+    <a href="about.html">About</a>
+    <a href="services.html">Services</a>
+    <a href="contact.html">Contact</a>
+  </nav>
+
+  <!-- Main Content -->
+  <div class="container">
+    <h1>Contact Us</h1>
+    <p>Have questions or need support? Use the form below to reach out to our team.</p>
+    <form>
+      <label for="name">Name:</label><br>
+      <input type="text" id="name" name="name" required><br><br>
+
+      <label for="email">Email:</label><br>
+      <input type="email" id="email" name="email" required><br><br>
+
+      <label for="message">Message:</label><br>
+      <textarea id="message" name="message" rows="4" required></textarea><br><br>
+
+      <input type="submit" value="Submit">
+    </form>
+  </div>
+
+  <!-- Footer -->
+  <footer>
+    <p>&copy; 2025 Veteran Resume and Job Services</p>
+  </footer>
 </body>
-<link rel="stylesheet" href="style.css">
 </html>
+
 
