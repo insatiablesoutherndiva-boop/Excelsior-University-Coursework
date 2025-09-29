@@ -53,3 +53,11 @@ footer {
     padding: 10px;
     margin-top: 30px;
 }
+
+/* Banner Image */
+.banner-img {
+    width: 100%;         /* full width of the page */
+    max-height: 250px;   /* keep it from being too tall */
+    object-fit: cover;   /* crop to fit without stretching */
+    display: block;      /* removes extra space below image */
+}
