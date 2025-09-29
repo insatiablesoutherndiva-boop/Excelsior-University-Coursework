@@ -57,7 +57,7 @@ footer {
 /* Banner Image */
 .banner-img {
     width: 100%;          /* full width across the screen */
-    max-height: 250px;    /* limits height so it’s not too tall */
+    max-height: 180px;    /* limits height so it’s not too tall */
     object-fit: cover;    /* crops the image to fit neatly without distortion */
     display: block;
     margin: 0 auto;
