@@ -71,3 +71,10 @@ footer {
   width: 100%;         /* responsive width */
   height: auto;
 }
+/* Profile Headshot Image */
+.profile-img {
+  display: block;
+  margin: 20px auto;
+  max-width: 200px;   /* keeps it smaller */
+  border-radius: 8px; /* slightly rounded edges */
+}
