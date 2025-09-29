@@ -56,9 +56,9 @@ footer {
 
 /* Banner Image */
 .banner-img {
-    width: 65%;          /* full width across the screen */
-    max-height: 180px;    /* limits height so it’s not too tall */
-    object-fit: cover;    /* crops the image to fit neatly without distortion */
+    width: 100%;          /* keep full width */
+    max-height: 120px;    /* keep the banner short and slim */
+    object-fit: cover;    /* crop edges instead of squishing */
     display: block;
     margin: 0 auto;
 }
