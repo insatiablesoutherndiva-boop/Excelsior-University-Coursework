@@ -67,9 +67,10 @@ footer {
 .content-img {
   display: block;
   margin: 20px auto;
-  max-width: 500px;   /* keeps images from being too large */
-  width: 100%;        /* makes images responsive */
+  max-width: 200px;  /* about 75% smaller */
+  width: 100%;
   height: auto;
   border-radius: 6px;
   box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
 }
+
