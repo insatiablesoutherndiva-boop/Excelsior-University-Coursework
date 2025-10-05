@@ -84,3 +84,21 @@ footer {
 .profile-img.circle {
   border-radius: 50%;
 }
+/* Dark Mode Theme */
+.dark-mode {
+  background-color: #1c1c1c;
+  color: white;
+}
+
+button#theme-toggle {
+  background-color: #0077cc;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+button#theme-toggle:hover {
+  background-color: #005fa3;
+}
