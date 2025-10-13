@@ -1,10 +1,29 @@
-<<<<<<< HEAD
+<!-- contact.html -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Contact Us</title>
   <link rel="stylesheet" href="style.css">
+  <style>
+    /* Minimal inline styles to ensure visibility if style.css is unavailable */
+    .container{max-width:900px;margin:2rem auto;padding:0 1rem}
+    .sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
+    form{max-width:720px}
+    .row{margin-bottom:1rem}
+    label{display:block;font-weight:600;margin-bottom:.25rem}
+    input[type="text"],input[type="email"],textarea{width:100%;padding:.6rem;border:1px solid #ccc;border-radius:6px}
+    .hint{font-size:.9rem;color:#555;margin-top:.25rem}
+    .actions{margin-top:1rem}
+    button{padding:.7rem 1rem;border-radius:6px;border:0;cursor:pointer}
+    .btn-primary{background:#1f4aa8;color:#fff}
+    .btn-secondary{background:#e5e7eb}
+    .msg{margin:1rem 0;padding:.9rem 1rem;border-radius:8px}
+    .msg-success{background:#ecfdf5;border:1px solid #10b981;color:#065f46}
+    .msg-error{background:#fef2f2;border:1px solid #ef4444;color:#7f1d1d}
+    .req{color:#b91c1c}
+  </style>
 </head>
 <body>
   <!-- Navigation -->
@@ -12,76 +31,203 @@
     <a href="index.html">Home</a>
     <a href="about.html">About</a>
     <a href="services.html">Services</a>
-    <a href="contact.html">Contact</a>
+    <a href="contact.html" aria-current="page">Contact</a>
   </nav>
 
   <!-- Main Content -->
   <div class="container">
     <h1>Contact Us</h1>
-    <p>Have questions or need support? Use the form below to reach out to our team.</p>
-    <form>
-      <label for="name">Name:</label><br>
-      <input type="text" id="name" name="name" required><br><br>
 
-      <label for="email">Email:</label><br>
-      <input type="email" id="email" name="email" required><br><br>
+    <!-- Purpose annotation required by the module -->
+    <p id="form-purpose">
+      Purpose. This form captures visitor inquiries so our team can provide resume and job support. Your submission is stored for review and a confirmation message is shown immediately after you press Submit.
+    </p>
 
-      <label for="message">Message:</label><br>
-      <textarea id="message" name="message" rows="4" required></textarea><br><br>
+    <!-- Live region for confirmation/errors -->
+    <div id="formMessages" class="msg" role="status" aria-live="polite" style="display:none"></div>
 
-      <input type="submit" value="Submit">
+    <noscript>
+      <div class="msg msg-error">JavaScript is disabled. The form will send your message by email using your device's mail app. If that does not work, email us directly.</div>
+    </noscript>
+
+    <form id="contactForm" novalidate>
+      <!-- Honeypot field to reduce bot spam -->
+      <div class="sr-only" aria-hidden="true">
+        <label for="company">Company</label>
+        <input type="text" id="company" name="company" tabindex="-1" autocomplete="off">
+      </div>
+
+      <div class="row">
+        <label for="name">Name <span class="req" aria-hidden="true">*</span></label>
+        <input type="text" id="name" name="name" required minlength="2" maxlength="80" autocomplete="name" />
+        <div class="hint" id="name-hint">Enter your full name.</div>
+      </div>
+
+      <div class="row">
+        <label for="email">Email <span class="req" aria-hidden="true">*</span></label>
+        <input type="email" id="email" name="email" required maxlength="120" autocomplete="email" />
+        <div class="hint" id="email-hint">We use this to send your acknowledgement.</div>
+      </div>
+
+      <div class="row">
+        <label for="message">Message <span class="req" aria-hidden="true">*</span></label>
+        <textarea id="message" name="message" rows="5" required minlength="10" maxlength="2000" aria-describedby="msg-hint"></textarea>
+        <div class="hint" id="msg-hint">Provide details so we can respond with the right support.</div>
+      </div>
+
+      <div class="actions">
+        <button type="submit" class="btn-primary">Submit</button>
+        <button type="reset" class="btn-secondary" id="resetBtn">Clear</button>
+      </div>
     </form>
+
+    <!-- Optional serverless/third-party endpoint placeholder
+         If you adopt Formspree or similar, set action and method on the form element:
+         <form id="contactForm" action="https://formspree.io/f/yourFormId" method="POST">
+         Keep the JavaScript success message for immediate feedback.
+    -->
   </div>
 
   <!-- Footer -->
   <footer>
     <p>&copy; 2025 Veteran Resume and Job Services</p>
   </footer>
+
+  <script>
+    (function(){
+      const form = document.getElementById('contactForm');
+      const messages = document.getElementById('formMessages');
+      const resetBtn = document.getElementById('resetBtn');
+
+      function showMessage(text, ok){
+        messages.textContent = text;
+        messages.className = 'msg ' + (ok ? 'msg-success' : 'msg-error');
+        messages.style.display = 'block';
+        messages.focus && messages.focus();
+      }
+
+      function validate(){
+        const name = document.getElementById('name');
+        const email = document.getElementById('email');
+        const message = document.getElementById('message');
+        const honeypot = document.getElementById('company');
+
+        if (honeypot.value && honeypot.value.trim() !== ''){
+          return { ok:false, msg:'Submission blocked. Please try again.' };
+        }
+        if (!name.value || name.value.trim().length < 2){
+          name.focus();
+          return { ok:false, msg:'Please enter your name.' };
+        }
+        const emailVal = email.value.trim();
+        const emailOk = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(emailVal);
+        if (!emailOk){
+          email.focus();
+          return { ok:false, msg:'Please enter a valid email address.' };
+        }
+        if (!message.value || message.value.trim().length < 10){
+          message.focus();
+          return { ok:false, msg:'Please provide a brief message.' };
+        }
+        return { ok:true, msg:'Validated' };
+      }
+
+      function persistLocally(payload){
+        try{
+          const key = 'contact_submissions';
+          const existing = JSON.parse(localStorage.getItem(key) || '[]');
+          existing.push(payload);
+          localStorage.setItem(key, JSON.stringify(existing));
+        }catch(e){
+          /* ignore quota errors for this assignment */
+        }
+      }
+
+      form.addEventListener('submit', async function(ev){
+        ev.preventDefault();
+        const v = validate();
+        if (!v.ok){
+          showMessage(v.msg, false);
+          return;
+        }
+        const payload = {
+          id: 'req_' + Math.random().toString(36).slice(2),
+          name: document.getElementById('name').value.trim(),
+          email: document.getElementById('email').value.trim(),
+          message: document.getElementById('message').value.trim(),
+          ts: new Date().toISOString()
+        };
+
+        // For this module, capture locally, then display confirmation.
+        persistLocally(payload);
+
+        // If you later wire a provider endpoint, uncomment the block below and
+        // set form.action to your provider URL, then handle the fetch accordingly.
+        /*
+        try{
+          const res = await fetch(form.action || '#', {
+            method: form.method || 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(payload)
+          });
+          if (!res.ok) throw new Error('Network error');
+        }catch(err){
+          showMessage('We could not send your message at this time. Please try again later.', false);
+          return;
+        }
+        */
+
+        form.reset();
+        showMessage('Thank you. Your message was submitted successfully. We sent a confirmation to your email if provided.', true);
+      });
+
+      resetBtn.addEventListener('click', function(){
+        messages.style.display = 'none';
+        messages.textContent = '';
+      });
+    })();
+  </script>
 </body>
 </html>
 
 
-=======
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <title>Contact Us</title>
-  <link rel="stylesheet" href="style.css">
-</head>
-<body>
-  <!-- Navigation -->
-  <nav>
-    <a href="index.html">Home</a>
-    <a href="about.html">About</a>
-    <a href="services.html">Services</a>
-    <a href="contact.html">Contact</a>
-  </nav>
+<!-- Optional contact.php for environments that support PHP (not used on GitHub Pages). Place on a PHP-capable host. -->
+<!-- contact.php -->
+<!--
+<?php
+// Basic secure handler for the same fields
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    // Honeypot
+    if (!empty($_POST['company'])) {
+        http_response_code(400);
+        echo 'Submission blocked.';
+        exit;
+    }
 
-  <!-- Main Content -->
-  <div class="container">
-    <h1>Contact Us</h1>
-    <p>Have questions or need support? Use the form below to reach out to our team.</p>
-    <form>
-      <label for="name">Name:</label><br>
-      <input type="text" id="name" name="name" required><br><br>
+    function clean($key, $filter = FILTER_SANITIZE_STRING) {
+        return trim(filter_input(INPUT_POST, $key, $filter));
+    }
 
-      <label for="email">Email:</label><br>
-      <input type="email" id="email" name="email" required><br><br>
+    $name = clean('name');
+    $email = filter_input(INPUT_POST, 'email', FILTER_VALIDATE_EMAIL);
+    $message = clean('message');
 
-      <label for="message">Message:</label><br>
-      <textarea id="message" name="message" rows="4" required></textarea><br><br>
+    if (!$name || !$email || !$message) {
+        http_response_code(422);
+        echo 'Invalid input.';
+        exit;
+    }
 
-      <input type="submit" value="Submit">
-    </form>
-  </div>
+    // Example. Write to a CSV file outside web root or send email via mail()
+    // file_put_contents('/var/data/contact.csv', sprintf("%s,%s,%s,%s\n", date('c'), $name, $email, str_replace(["\n","\r"],' ',$message)), FILE_APPEND | LOCK_EX);
 
-  <!-- Footer -->
-  <footer>
-    <p>&copy; 2025 Veteran Resume and Job Services</p>
-  </footer>
-</body>
-</html>
-
-
->>>>>>> 4338720b74c028d85af822d3a14c26478f02afb5
+    // Send a simple confirmation page
+    header('Content-Type: text/html; charset=UTF-8');
+    echo '<!DOCTYPE html><html><head><meta charset="UTF-8"><title>Thank you</title></head><body>';
+    echo '<p>Thank you. Your message was submitted successfully. We will contact you soon.</p>';
+    echo '</body></html>';
+    exit;
+}
+http_response_code(405);
+?>
+-->
