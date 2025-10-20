@@ -5,53 +5,51 @@
 
 /* General Page Styling */
 body {
-    font-family: Arial, sans-serif;
-    background-color: #ffffff;  /* pure white */
-    color: #1a1a1a;
-    margin: 0;
-    padding: 0;
+  font-family: Arial, sans-serif;
+  background-color: #ffffff;  /* pure white */
+  color: #1a1a1a;
+  margin: 0;
+  padding: 0;
 }
 
 /* Header and Titles */
 h1, h2, h3 {
-    font-family: 'Roboto Slab', Arial, sans-serif;
-    color: #002147;  /* dark navy blue */
-    text-align: center;
-    margin-top: 20px;
+  font-family: 'Roboto Slab', Arial, sans-serif;
+  color: #002147;  /* dark navy blue */
+  text-align: center;
+  margin-top: 20px;
 }
 
 /* Navigation Menu */
 nav {
-    background-color: #002147;
-    padding: 10px;
-    text-align: center;
+  background-color: #002147;
+  padding: 10px;
+  text-align: center;
 }
-
 nav a {
-    color: #ffffff;
-    margin: 0 15px;
-    text-decoration: none;
-    font-weight: bold;
+  color: #ffffff;
+  margin: 0 15px;
+  text-decoration: none;
+  font-weight: bold;
 }
-
 nav a:hover {
-    color: #f0ad4e; /* gold hover effect */
+  color: #f0ad4e; /* gold hover effect */
 }
 
 /* Content Area */
 .container {
-    width: 80%;
-    margin: 20px auto;
-    line-height: 1.6;
+  width: 80%;
+  margin: 20px auto;
+  line-height: 1.6;
 }
 
 /* Footer */
 footer {
-    background-color: #002147;
-    color: #ffffff;
-    text-align: center;
-    padding: 10px;
-    margin-top: 30px;
+  background-color: #002147;
+  color: #ffffff;
+  text-align: center;
+  padding: 10px;
+  margin-top: 30px;
 }
 
 /* Banner Image */
@@ -79,17 +77,16 @@ footer {
   max-width: 200px;   /* keeps headshot smaller */
   border-radius: 8px; /* slightly rounded edges */
 }
-
 /* Optional: Circular profile photo look */
 .profile-img.circle {
   border-radius: 50%;
 }
+
 /* Dark Mode Theme */
 .dark-mode {
   background-color: #1c1c1c;
   color: white;
 }
-
 button#theme-toggle {
   background-color: #0077cc;
   color: white;
@@ -98,7 +95,73 @@ button#theme-toggle {
   border-radius: 8px;
   cursor: pointer;
 }
-
 button#theme-toggle:hover {
   background-color: #005fa3;
 }
+
+/* ============================= */
+/* New styles for video embed    */
+/* ============================= */
+
+/* Media grid for image + video on the Welcome section */
+.media-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1rem;
+  align-items: start;
+  margin: 1.5rem 0;
+}
+.media-grid figure { margin: 0; }
+.media-grid img,
+.media-grid video {
+  width: 100%;
+  height: auto;
+  border-radius: 8px;
+}
+/* Two columns on larger screens */
+@media (min-width: 900px) {
+  .media-grid { grid-template-columns: 1fr 1fr; }
+}
+/* Improve perceived loading and default backdrop */
+video { background: #000; }
+
+/* Visually hidden helper for accessible captions */
+.sr-only {
+  position: absolute;
+  width: 1px; height: 1px;
+  padding: 0; margin: -1px;
+  overflow: hidden; clip: rect(0,0,0,0);
+  white-space: nowrap; border: 0;
+}
+
+/* ============================= */
+/* Optional styles for Services  */
+/* calendar panel and buttons    */
+/* ============================= */
+
+.services-actions .tool-row { margin: 1rem 0; }
+.btn, .btn-primary {
+  display: inline-block;
+  padding: .6rem 1rem;
+  border-radius: 8px;
+  border: 0;
+  cursor: pointer;
+  text-decoration: none;
+}
+.btn { background: #e5e7eb; color: #111827; }
+.btn-primary { background: #1f4aa8; color: #fff; }
+.panel {
+  padding: 1rem;
+  border: 1px solid #d1d5db;
+  border-radius: 8px;
+  background: #f9fafb;
+  margin-top: .75rem;
+}
+.hidden { display: none; }
+.calendar-form {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: .5rem;
+  max-width: 420px;
+}
+.inline-msg { margin-left: .5rem; font-size: .9rem; color: #065f46; }
