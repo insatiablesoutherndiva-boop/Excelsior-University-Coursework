@@ -5,6 +5,14 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Veteran Resume & Job Services</title>
   <link rel="stylesheet" href="style.css">
+  <style>
+    /* Responsive two-column media row for image + video */
+    .media-grid { display: grid; grid-template-columns: 1fr; gap: 1rem; align-items: start; margin: 1.5rem 0; }
+    .media-grid figure { margin: 0; }
+    .media-grid img, .media-grid video { width: 100%; height: auto; border-radius: 8px; }
+    @media (min-width: 900px) { .media-grid { grid-template-columns: 1fr 1fr; } }
+    .sr-only { position:absolute; width:1px; height:1px; padding:0; margin:-1px; overflow:hidden; clip:rect(0,0,0,0); white-space:nowrap; border:0; }
+  </style>
 </head>
 <body>
   <header class="site-banner">
@@ -28,8 +36,8 @@
       <button id="theme-toggle">Toggle Theme</button>
     </section>
 
-    <!-- Welcome Section -->
-    <section>
+    <!-- Welcome Section with side-by-side image and video -->
+    <section aria-label="Welcome and demonstration">
       <h2>Welcome</h2>
       <p>
         At Mission Ready Careers, a Resume and Job Services company, we are committed to helping every Veteran achieve career success. 
@@ -37,7 +45,23 @@
         Civil, Private, and Commercial employers. We go beyond resumes, offering job-matching resources, interview coaching, and access 
         to veteran-friendly employers who value your service and skills.
       </p>
-      <img src="assets/images/Quote.jpg" alt="Quote about making a lasting impression" class="content-img">
+
+      <div class="media-grid">
+        <figure>
+          <img src="assets/images/Quote.jpg" alt="Quote about making a lasting impression" class="content-img">
+          <figcaption class="sr-only">Inspiration image</figcaption>
+        </figure>
+
+        <figure>
+          <!-- Video embed -->
+          <video controls playsinline preload="metadata" poster="assets/images/banner-800x600.jpeg" aria-label="Website demonstration video">
+            <source src="assets/videos/Website%20Demonstration.mp4" type="video/mp4">
+            Your browser does not support the video tag. You can download the video
+            <a href="assets/videos/Website%20Demonstration.mp4">here</a>.
+          </video>
+          <figcaption class="sr-only">Website demonstration</figcaption>
+        </figure>
+      </div>
     </section>
 
     <!-- What We Offer -->
@@ -71,7 +95,6 @@
   </footer>
 
   <!-- Load JavaScript after all content -->
- <script src="script.js"></script>
+  <script src="script.js"></script>
 </body>
 </html>
-
