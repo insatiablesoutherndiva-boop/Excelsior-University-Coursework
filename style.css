@@ -39,6 +39,7 @@ nav a:hover {
 /* Content Area */
 .container {
   width: 80%;
+  max-width: 1100px;
   margin: 20px auto;
   line-height: 1.6;
 }
@@ -98,6 +99,10 @@ button#theme-toggle {
 button#theme-toggle:hover {
   background-color: #005fa3;
 }
+button#theme-toggle:focus-visible {
+  outline: 3px solid #f0ad4e;
+  outline-offset: 2px;
+}
 
 /* ============================= */
 /* New styles for video embed    */
@@ -135,11 +140,13 @@ video { background: #000; }
 }
 
 /* ============================= */
-/* Optional styles for Services  */
+/* Services page tools           */
 /* calendar panel and buttons    */
 /* ============================= */
 
 .services-actions .tool-row { margin: 1rem 0; }
+
+/* Buttons */
 .btn, .btn-primary {
   display: inline-block;
   padding: .6rem 1rem;
@@ -147,9 +154,22 @@ video { background: #000; }
   border: 0;
   cursor: pointer;
   text-decoration: none;
+  font-weight: 600;
 }
 .btn { background: #e5e7eb; color: #111827; }
+.btn:hover { background: #d1d5db; }
+.btn:focus-visible {
+  outline: 3px solid #f0ad4e;
+  outline-offset: 2px;
+}
 .btn-primary { background: #1f4aa8; color: #fff; }
+.btn-primary:hover { background: #163a83; }
+.btn-primary:focus-visible {
+  outline: 3px solid #f0ad4e;
+  outline-offset: 2px;
+}
+
+/* Reveal panels */
 .panel {
   padding: 1rem;
   border: 1px solid #d1d5db;
@@ -157,7 +177,10 @@ video { background: #000; }
   background: #f9fafb;
   margin-top: .75rem;
 }
+.panel p { margin: 0.25rem 0 0; }
 .hidden { display: none; }
+
+/* Calendar form layout */
 .calendar-form {
   display: grid;
   grid-template-columns: 1fr;
@@ -165,3 +188,11 @@ video { background: #000; }
   max-width: 420px;
 }
 .inline-msg { margin-left: .5rem; font-size: .9rem; color: #065f46; }
+
+/* Small preview images next to buttons */
+.services-actions .tool-row img {
+  max-width: 160px;
+  height: auto;
+  border-radius: 8px;
+  display: block;
+}
