@@ -3,6 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <title>Our Services - Veteran Resume & Job Services</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
@@ -16,7 +17,7 @@
     <nav>
       <a href="index.html">Home</a>
       <a href="about.html">About Us</a>
-      <a href="services.html">Services</a>
+      <a href="services.html" aria-current="page">Services</a>
       <a href="contact.html">Contact</a>
     </nav>
   </header>
@@ -30,11 +31,112 @@
       <li><strong>Job Resources:</strong> Access curated job postings from veteran-friendly employers.</li>
       <li><strong>Mentorship:</strong> Connect with professionals who have successfully transitioned from the military.</li>
     </ul>
+
+    <!-- Interactive tools -->
+    <section class="services-actions" aria-label="Interactive tools">
+      <h2>Tools</h2>
+
+      <!-- Calendar tool -->
+      <div class="tool-row">
+        <div style="display:flex; gap:1rem; align-items:center; flex-wrap:wrap;">
+          <img src="assets/images/Schedule.jpeg" alt="Open scheduling calendar" style="max-width:160px; height:auto; border-radius:8px;">
+          <button type="button" class="btn-primary" id="openCalendarBtn" aria-controls="calendarPanel" aria-expanded="false">
+            Open scheduling calendar
+          </button>
+        </div>
+
+        <div id="calendarPanel" class="panel hidden" aria-hidden="true">
+          <p>Select a target date and add a note. This demo stores your selection locally.</p>
+          <form id="calendarForm" class="calendar-form">
+            <label for="apptDate">Date</label>
+            <input type="date" id="apptDate" name="apptDate" required>
+            <label for="apptNote">Notes</label>
+            <input type="text" id="apptNote" name="apptNote" maxlength="120" placeholder="Virtual or in person, best time, etc.">
+            <button type="submit" class="btn-primary">Save</button>
+            <span id="calendarMsg" class="inline-msg" role="status" aria-live="polite"></span>
+          </form>
+        </div>
+      </div>
+
+      <!-- Interview preparation tool -->
+      <div class="tool-row">
+        <div style="display:flex; gap:1rem; align-items:center; flex-wrap:wrap;">
+          <img src="assets/images/Preparation.jpg" alt="Interview preparation" style="max-width:160px; height:auto; border-radius:8px;">
+          <button type="button" class="btn" id="openInterviewBtn" aria-controls="interviewPanel" aria-expanded="false">
+            Show interview preparation
+          </button>
+        </div>
+
+        <article id="interviewPanel" class="panel hidden" aria-hidden="true">
+          <h3>Interview preparation for transitioning service members</h3>
+          <p>
+            Preparing for an interview as a transitioning service member is a pivotal step in translating your military experience into civilian success.
+            Begin by researching the company and role thoroughly, understand their mission, values, and how your skills align. Practice articulating your
+            military experience in terms that resonate with civilian employers, leadership, problem solving, adaptability, and teamwork are universally valued.
+            Use the STAR method, Situation, Task, Action, Result, to structure your responses, especially when discussing accomplishments. Dress professionally,
+            arrive early, and bring copies of your resume. Be ready to explain why you are transitioning and what excites you about the opportunity.
+            Be confident. Your service has equipped you with discipline, resilience, and a unique perspective that can benefit any organization.
+          </p>
+        </article>
+      </div>
+    </section>
   </main>
 
   <!-- Footer -->
   <footer>
     <p>&copy; 2025 Veteran Resume and Job Services. All rights reserved.</p>
   </footer>
+
+  <!-- Minimal script to toggle panels and store calendar selection -->
+  <script>
+  (function(){
+    // Utility to toggle a panel and sync ARIA
+    function togglePanel(btn, panel, focusEl){
+      const isHidden = panel.classList.contains('hidden');
+      panel.classList.toggle('hidden');
+      panel.setAttribute('aria-hidden', String(!isHidden));
+      btn.setAttribute('aria-expanded', String(isHidden));
+      if (isHidden && focusEl) focusEl.focus();
+    }
+
+    // Calendar UI
+    const openCalBtn = document.getElementById('openCalendarBtn');
+    const calPanel = document.getElementById('calendarPanel');
+    const dateInput = document.getElementById('apptDate');
+    const calForm = document.getElementById('calendarForm');
+    const calMsg = document.getElementById('calendarMsg');
+
+    if (openCalBtn && calPanel){
+      openCalBtn.addEventListener('click', function(){
+        togglePanel(openCalBtn, calPanel, dateInput);
+      });
+    }
+    if (calForm){
+      calForm.addEventListener('submit', function(ev){
+        ev.preventDefault();
+        const d = dateInput.value;
+        const note = document.getElementById('apptNote').value.trim();
+        if (!d){ calMsg.textContent = 'Pick a date.'; return; }
+        try {
+          const key = 'demo_calendar_selection';
+          localStorage.setItem(key, JSON.stringify({ date: d, note, ts: new Date().toISOString() }));
+          calMsg.textContent = 'Saved.';
+          calForm.reset();
+        } catch(e){
+          calMsg.textContent = 'Could not save.';
+        }
+      });
+    }
+
+    // Interview prep
+    const openInterviewBtn = document.getElementById('openInterviewBtn');
+    const interviewPanel = document.getElementById('interviewPanel');
+    if (openInterviewBtn && interviewPanel){
+      openInterviewBtn.addEventListener('click', function(){
+        togglePanel(openInterviewBtn, interviewPanel, null);
+      });
+    }
+  })();
+  </script>
 </body>
 </html>
